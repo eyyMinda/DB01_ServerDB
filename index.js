@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
 app.get('/', (req, res) => res.render('index'));
 app.get('/db', (req, res) => {
     connection.execute('SELECT productLine, textDescription FROM productlines', (err, rows) => {
-        const data = rows.map(row => [row.productLine + "  ---  ", row.textDescription]);
+        const data = rows.map(row => row);
         res.render('db', { data: data });
     });
 })

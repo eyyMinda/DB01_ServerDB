@@ -1,3 +1,23 @@
-<h1 style="color: red;">Yo boi</h1>
-
 <a href="/db">DB</a>
+
+{{#with model}}
+<div id="title-container">
+    <h1>
+        {{title}}
+    </h1>
+</div>
+<hr />
+<main>
+    <form id="note-input">
+        <input type="tegetxt" name="note" placeholder="Add new note!" />
+        <button type="submit">Add</button>
+    </form>
+    <section>
+        {{#each notes}}
+        <div>
+            <span>{{this}}</span>
+        </div>
+        {{/each}}
+    </section>
+</main>
+{{/with}}

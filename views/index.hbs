@@ -1,4 +1,4 @@
-<a href="/db">DB</a>
+<header><a href="/db">DB</a></header>
 
 {{#with model}}
 <div id="title-container">
@@ -17,6 +17,8 @@
         <div>
             <span>{{this}}</span>
         </div>
+        <button><i class="fa-solid fa-pen-to-square"></i></button>
+        <button onclick="deleteNote({{this.noteId}})"><i class="fa-solid fa-delete-left"></i></button>
         {{/each}}
     </section>
 </main>

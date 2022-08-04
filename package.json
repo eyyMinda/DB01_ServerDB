@@ -16,18 +16,18 @@
     "express-handlebars": "^6.0.6",
     "mysql2": "^2.3.3"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.19"
-  },
   "directories": {
     "lib": "lib"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eyyMinda/DB01_ServerDB.git"
+    "url": "git+https://github.com/eyyMinda/To-Do-App.git"
   },
   "bugs": {
-    "url": "https://github.com/eyyMinda/DB01_ServerDB/issues"
+    "url": "https://github.com/eyyMinda/To-Do-App/issues"
   },
-  "homepage": "https://github.com/eyyMinda/DB01_ServerDB#readme"
+  "homepage": "https://github.com/eyyMinda/To-Do-App#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }

@@ -8,17 +8,19 @@
 </div>
 <hr />
 <main>
-    <form id="note-input">
-        <input type="tegetxt" name="note" placeholder="Add new note!" />
+    <form id="note-input" method="post">
+        <input type="text" name="note" placeholder="Add new note!" />
         <button type="submit">Add</button>
     </form>
     <section>
         {{#each notes}}
-        <div>
-            <span>{{this}}</span>
+        <div class="note">
+            <span>{{this.note}}</span>
+            <div class="buttons">
+                <button><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="deleteNote({{this.note_id}})"><i class="fa-solid fa-delete-left"></i></button>
+            </div>
         </div>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        <button onclick="deleteNote({{this.noteId}})"><i class="fa-solid fa-delete-left"></i></button>
         {{/each}}
     </section>
 </main>

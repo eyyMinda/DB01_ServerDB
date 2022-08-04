@@ -7,8 +7,6 @@ function deleteNote(id) {
 function editNote(id, btn) {
     const els = getNoteElements(id, btn);
     const { container, noteText } = els;
-    console.log(btn.parentElement.parentElement)
-    console.log(id, btn)
     savedText[id] = noteText;
     const input = editInput(noteText.innerText);
     container.replaceChild(input, noteText);
@@ -26,7 +24,11 @@ function saveEdit(id, btn) {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, note: noteEdit.value })
-    })
+    }).then((res) => {
+        console.log(res);
+    }).catch(err => {
+        console.log(err);
+    });
 }
 
 function undoEdit(id, btn) {
@@ -45,15 +47,11 @@ function editInput(Text) {
 }
 
 function getNoteElements(id, btn) {
-    const container = contOfBtn(btn);
+    const container = btn.parentElement.parentElement;
     const noteEdit = container.querySelector('.note-edit');
-    if (noteEdit) { return { container, noteEdit, noteText: savedText(id) } } else {
+    if (noteEdit) { return { container, noteEdit, noteText: savedText[id] } } else {
         return { container, noteText: container.querySelector('.note-text') }
     }
-}
-
-function contOfBtn(btn) {
-    return btn.parentElement.parentElement;
 }
 
 function revertEdit(els) {
@@ -64,5 +62,4 @@ function revertEdit(els) {
 function setBtnGroup(container, group) {
     container.querySelectorAll('.buttons>button').forEach(btn => btn.classList.add('hidden'));
     container.querySelectorAll(`.${group}`).forEach(btn => btn.classList.remove('hidden'));
-
 }

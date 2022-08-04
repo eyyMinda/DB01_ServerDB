@@ -136,3 +136,6 @@ h1 {
     color:#000000;
     background-color: rgb(136, 2, 125);
 }
+.hidden {
+    display: none !important;
+}

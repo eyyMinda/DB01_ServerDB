@@ -8,7 +8,7 @@ ToDo list:
 
 5. [✅] Elemento ištrynimas
 6. [✅] Elemento modifikajimas
-7. [] Praplėtimas: prioritetai, stiliai
+7. [✅] Praplėtimas: prioritetai, stiliai
 
  
 

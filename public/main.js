@@ -24,11 +24,7 @@ function saveEdit(id, btn) {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, note: noteEdit.value })
-    }).then((res) => {
-        console.log(res);
-    }).catch(err => {
-        console.log(err);
-    });
+    })
 }
 
 function undoEdit(id, btn) {

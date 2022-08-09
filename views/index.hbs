@@ -10,20 +10,28 @@
 <main>
     <form id="note-input" method="post">
         <input type="text" name="note" placeholder="Add new note!" />
+        <input type="number" name="priority" placeholder="Priority" />
+        <select name="style">
+            <option value="0">Default</option>
+            <option value="1">Red</option>
+            <option value="2">Yellow</option>
+            <option value="3">Green</option>
+        </select>
         <button type="submit">Add</button>
     </form>
     <section>
         {{#each notes}}
-        <div class="note">
+        <div class="note {{#if this.style}}style-{{this.style}}{{/if}}">
             <span class="note-text">{{this.note}}</span>
+            <span class="note-priority">priority: {{this.priority}}</span>
             <div class="buttons">
-                <button onclick="editNote({{this.note_id}}, this)" class="btn"><i
+                <button onclick="editNote({{this.noteId}}, this)" class="btn"><i
                         class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="deleteNote({{this.note_id}})" class="btn"><i
+                <button onclick="deleteNote({{this.noteId}})" class="btn"><i
                         class="fa-solid fa-delete-left"></i></button>
-                <button onclick="saveEdit({{this.note_id}}, this)" class="btn-edit hidden"><i
+                <button onclick="saveEdit({{this.noteId}}, this)" class="btn-edit hidden"><i
                         class="fa-solid fa-floppy-disk"></i></button>
-                <button onclick="undoEdit({{this.note_id}}, this)" class="btn-edit hidden"><i
+                <button onclick="undoEdit({{this.noteId}}, this)" class="btn-edit hidden"><i
                         class="fa-solid fa-rotate-left"></i></button>
             </div>
         </div>

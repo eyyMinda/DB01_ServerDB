@@ -12,8 +12,8 @@ ToDo list:
  
  
 
-8. [] Registracija
-9. [] Prisijungimas
+8. [✅] Registracija
+9. [✅] Prisijungimas
 10. [] Rodyti tik vartotojo elementus
 
  

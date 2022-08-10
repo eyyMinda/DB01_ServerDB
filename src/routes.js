@@ -6,10 +6,12 @@ export function getNotes(req, res) {
     model.title = 'To-Do App';
 
     Promise.resolve()
+        .then(_ => authenticate(req))
         .then(_ => Promise.all([db.selectNotes(connect()), db.selectStyles(connect())]))
         .then(([notes, styles]) => ({ ...model, notes, styles }))
         .then(model => res.render('index', { model }))
         .catch(err => {
+            if (err === 'no auth') return res.redirect('/login');
             console.log(err);
             res.render('error', { model: { errorName: err.name, message: err.message, stack: err.stack } });
         });
@@ -60,4 +62,11 @@ export function updateNote(req, res) {
             console.log(err);
             res.status(404).send(err);
         });
+}
+
+async function authenticate(req) {
+    const token = req.cookies.authToken;
+    if (! await db.selectToken(connect(), token)) {
+        throw 'no auth';
+    }
 }

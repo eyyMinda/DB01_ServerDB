@@ -67,3 +67,40 @@ export async function updateNote(connection, noteId, note) {
         });
     });
 }
+
+export async function insertUser(connection, username, hash) {
+    return await new Promise((resolve, reject) => {
+        connection.execute('INSERT users(username, passHash) VALUES(?, ?)', [username, hash], (err, _) => {
+            if (err) return reject(err);
+            resolve();
+        });
+    })
+}
+
+export async function getUser(connection, username) {
+    return await new Promise((resolve, reject) => {
+        connection.execute('SELECT * FROM users WHERE username = ?', [username], (err, res) => {
+            if (err) return reject(err);
+            if (res.length === 0) return reject('No user');
+            return resolve(res[0]);
+        });
+    })
+}
+
+export async function insertToken(connection, token, userId) {
+    return await new Promise((resolve, reject) => {
+        connection.execute('INSERT loginTokens(userId, token) VALUES(?, ?)', [userId, token], (err, _) => {
+            if (err) return reject(err);
+            resolve();
+        });
+    })
+}
+
+export async function selectToken(connection, token) {
+    return await new Promise((resolve, reject) => {
+        connection.execute('SELECT * from loginTokens WHERE token = ?', [token], (err, _) => {
+            if (err) return reject(err);
+            resolve(!!_[0]);
+        });
+    })
+}

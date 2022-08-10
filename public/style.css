@@ -9,6 +9,9 @@ body{
 a {
     text-decoration: underline;
 }
+header{
+    margin: 20px 40px;
+}
 hr {
     border-width: 0;
     border-bottom-width: 2px;

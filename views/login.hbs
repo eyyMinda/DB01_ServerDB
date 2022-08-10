@@ -1,0 +1,24 @@
+<header>
+    <a href="/">Home</a>
+    <a href="/register">Register</a>
+    <a href="/login">Login</a>
+</header>
+<hr />
+
+{{#with model}}
+    <h1>Login</h1>
+    <main>
+        <form method="POST">
+            <label for="username-input">Username</label>
+            <input type="text" name="username" id="username-input" />
+            <label for="password-input">Password</label>
+            <input type="password" name="password" id="password-input" />
+            <button type="submit">Login</button>
+        </form>
+        {{#if hasError}}
+            <div style="color=red;">
+                Login failed. Is username and password correct?
+            </div>
+        {{/if}}
+    </main>
+{{/with}}

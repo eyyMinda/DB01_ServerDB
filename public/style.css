@@ -20,44 +20,85 @@ main {
     margin: 20px 10px;
 }
 
-form {
+form#note-input {
     display: flex;
     justify-content: center;
     gap: 8px;
 }
-#note-input input {
+
+.note-input.note-text {
+    max-width: 500px;
     flex-grow: 2;
-    background-color: #6800a5;
-    color: #000;
-    font-size: 1.2em;
+}
+
+.note-input {
+    background-color: #052020;
+    color: #ddf;
+    box-shadow: #bdd 0 0 4px 1px;
+
     border: 0;
     border-radius: 8px;
-    box-shadow: #bdd 0 0 4px 1px;
     padding:16px;
-    max-width: 500px;
+    
+    display: flex;
+}
+
+.note-input.note-style option::before {
+    width: 16px;
+    height: 16px;
+    background-color: red;
+}
+
+.note-input .note,
+.note-input .priority
+{
+    color: #ddf;
+    color-scheme: dark;
+    background: #052020;
+    border: none;
+}
+
+.note-input .note {
+    font-size: 1.2em;
+    flex-grow: 1;
+}
+
+.note-input .priority
+{
+    border-bottom: 1px dotted #799;
+    text-align: center;
+    width: 70px;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.note-input .priority::-webkit-inner-spin-button {
+    display: none;
 }
 
 #note-input input:focus-visible {
     outline: none;
-    box-shadow: #bdd 0 0 6px 2px;
+    background-color: #799;
+    box-shadow: #bdd 0 0 4px 0px;
 }
 
 
 #note-input button {
-    background-color: #bdd;
+    background-color: #5d5;
     min-width: 80px;
     max-width: 120px;
     flex-grow: 1;
     border: 0;
     border-radius: 8px;
-    box-shadow: rgb(54, 1, 38) 0 0 3px 1px;
+    box-shadow: #8f8 0 0 3px 1px;
 
     transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transition: box-shadow 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
 }
 #note-input button:hover {
-    background-color: rgb(136, 2, 125);
-    box-shadow: rgb(7, 0, 4) 0 0 6px 2px;
+    background-color: #7f7;
+    box-shadow: #8f8 0 0 6px 2px;
 }
 section {
     margin-top: 1em;
@@ -95,9 +136,6 @@ h1 {
     align-items: center;
     justify-content: center;
 }
-.note>.note-text {
-    padding-right: 40px;
-}
 
 .note>.buttons {
     display: flex;
@@ -133,42 +171,16 @@ h1 {
     color:#000000;
     background-color: rgb(136, 2, 125);
 }
+
 .hidden {
     display: none !important;
 }
 
 .note-priority {
+    font-size: 15px;
+    min-width: 200px;
     flex-grow: 1;
     text-align: right;
-    padding: 0 20px;
+    padding: 0 10px;
     color: #577;
-}
-
-.note.style-1 {
-    /*Red*/
-
-    background-color: #f33;
-    box-shadow: #d88 0 0 4px 1px;
-}
-
-.note.style-1 .note-priority {
-    color: #ddf;
-}
-
-.note.style-2 {
-    /*Yellow*/
-
-    background-color: #bb6;
-    box-shadow: #bb8 0 0 4px 1px;
-}
-
-.note.style-3 {
-    /*Green*/
-
-    background-color: #696;
-    box-shadow: #d88 0 0 4px 1px;
-}
-
-.note.style-3 .note-priority {
-    color: #ddf;
 }

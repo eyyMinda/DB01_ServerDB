@@ -10,6 +10,16 @@ export async function selectNotes(connection) {
     });
 }
 
+export async function selectStyles(connection) {
+    return await new Promise((resolve, reject) => {
+        connection.execute('SELECT * FROM style', (err, rows) => {
+            if (err) return reject(err);
+            const notes = rows;
+            return resolve(notes);
+        })
+    });
+}
+
 export async function insertNote(connection, note, priority) {
     return await new Promise((resolve, reject) => {
         connection.execute('INSERT notes(note, priority) VALUES(?, ?)', [note, priority], (err, _) => {
@@ -21,17 +31,19 @@ export async function insertNote(connection, note, priority) {
 
 export async function lastInsertRow(connection) {
     return await new Promise((resolve, reject) => {
-        connection.execute('SELECT id FROM last_insert_row;', (err, result) => {
+        connection.execute('SELECT id FROM last_insert_row;', (err, res) => {
             if (err) return reject(err);
-            console.log('lastInsertRow ', result[0].id);
-            resolve(result[0].id);
+            console.log('lastInsertRow ', res[0].id);
+            resolve(res[0].id);
         });
     });
 }
 
 export async function insertStyle(connection, noteId, style) {
+    if (style == '0') return;
+
     return await new Promise((resolve, reject) => {
-        connection.execute('INSERT note_style(noteId, style) VALUES(?, ?)', [noteId, style], (err, result) => {
+        connection.execute('INSERT note_style(noteId, style) VALUES(?, ?)', [noteId, style], (err, res) => {
             if (err) return reject(err);
             resolve();
         });

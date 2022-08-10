@@ -36,9 +36,12 @@ DROP TABLE IF EXISTS `note_style`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `note_style` (
-  `noteId` int unsigned NOT NULL,
-  `style` int unsigned NOT NULL,
-  UNIQUE KEY `note_style_un` (`noteId`)
+  `noteId` int(10) unsigned NOT NULL,
+  `style` int(10) unsigned NOT NULL,
+  UNIQUE KEY `note_style_un` (`noteId`),
+   KEY `note_style->style` (`style`),
+  CONSTRAINT `note_style->notes` FOREIGN KEY (`noteId`) REFERENCES `notes` (`noteId`) ON DELETE CASCADE,
+  CONSTRAINT `note_style->style` FOREIGN KEY (`style`) REFERENCES `style` (`styleId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,11 +53,27 @@ DROP TABLE IF EXISTS `notes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notes` (
-  `noteId` int unsigned NOT NULL AUTO_INCREMENT,
-  `note` varchar(255) NOT NULL,
-  `priority` int DEFAULT '0',
+  `noteId` int(10)(10) unsigned NOT NULL AUTO_INCREMENT,
+  `note` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` int(10)(11) DEFAULT '0',
   PRIMARY KEY (`noteId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `style`
+--
+
+DROP TABLE IF EXISTS `style`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `style` (
+  `styleId` int(10)(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bodyCSS` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `priorityCSS` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`styleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

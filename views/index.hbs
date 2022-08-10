@@ -1,41 +1,57 @@
 <header><a href="/db">DB</a></header>
 
 {{#with model}}
-<div id="title-container">
-    <h1>
-        {{title}}
-    </h1>
-</div>
-<hr />
-<main>
-    <form id="note-input" method="post">
-        <input type="text" name="note" placeholder="Add new note!" />
-        <input type="number" name="priority" placeholder="Priority" />
-        <select name="style">
-            <option value="0">Default</option>
-            <option value="1">Red</option>
-            <option value="2">Yellow</option>
-            <option value="3">Green</option>
-        </select>
-        <button type="submit">Add</button>
-    </form>
-    <section>
-        {{#each notes}}
-        <div class="note {{#if this.style}}style-{{this.style}}{{/if}}">
-            <span class="note-text">{{this.note}}</span>
-            <span class="note-priority">priority: {{this.priority}}</span>
-            <div class="buttons">
-                <button onclick="editNote({{this.noteId}}, this)" class="btn"><i
-                        class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="deleteNote({{this.noteId}})" class="btn"><i
-                        class="fa-solid fa-delete-left"></i></button>
-                <button onclick="saveEdit({{this.noteId}}, this)" class="btn-edit hidden"><i
-                        class="fa-solid fa-floppy-disk"></i></button>
-                <button onclick="undoEdit({{this.noteId}}, this)" class="btn-edit hidden"><i
-                        class="fa-solid fa-rotate-left"></i></button>
+    <style>
+    {{#each styles}}
+        {{#if this.bodyCSS}}
+            .note.style-{{this.styleId}} {
+            {{this.bodyCSS}}
+            }
+        {{/if}}
+        {{#if this.priorityCSS}}
+            .note.style-{{this.styleId}} .note-priority {
+            {{this.priorityCSS}}
+            }
+        {{/if}}
+    {{/each}}
+    </style>
+    <div id="title-container">
+        <h1>
+            {{title}}
+        </h1>
+    </div>
+    <hr />
+    <main>
+        <form id="note-input" method="post">
+            <div class="note-input note-text">
+                <input type="text" name="note" class="note" placeholder="Add a note" />
+                <input type="number" name="priority" class="priority" placeholder="Priority" />
             </div>
-        </div>
-        {{/each}}
-    </section>
-</main>
+            <select name="style" class="note-input note-style">
+                <option value="0" class="note">Default</option>
+                {{#each styles}}
+                    <option value="{{this.styleId}}" class="note style-{{this.styleId}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+            <button type="submit">Add</button>
+        </form>
+        <section>
+            {{#each notes}}
+                <div class="note {{#if this.style}}style-{{this.style}}{{/if}}">
+                    <span class="note-text">{{this.note}}</span>
+                    <span class="note-priority">priority: {{this.priority}}</span>
+                    <div class="buttons">
+                        <button onclick="editNote({{this.noteId}}, this)" class="btn"><i
+                                class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deleteNote({{this.noteId}})" class="btn"><i
+                                class="fa-solid fa-delete-left"></i></button>
+                        <button onclick="saveEdit({{this.noteId}}, this)" class="btn-edit hidden"><i
+                                class="fa-solid fa-floppy-disk"></i></button>
+                        <button onclick="undoEdit({{this.noteId}}, this)" class="btn-edit hidden"><i
+                                class="fa-solid fa-rotate-left"></i></button>
+                    </div>
+                </div>
+            {{/each}}
+        </section>
+    </main>
 {{/with}}

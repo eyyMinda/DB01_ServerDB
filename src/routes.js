@@ -5,12 +5,12 @@ export function getNotes(req, res) {
     const model = {};
     model.title = 'To-Do App';
 
-    const connection = connect();
     Promise.resolve()
-        .then(_ => db.selectNotes(connection))
-        .then(notes => ({ ...model, notes }))
+        .then(_ => Promise.all([db.selectNotes(connect()), db.selectStyles(connect())]))
+        .then(([notes, styles]) => ({ ...model, notes, styles }))
         .then(model => res.render('index', { model }))
         .catch(err => {
+            console.log(err);
             res.render('error', { model: { errorName: err.name, message: err.message, stack: err.stack } });
         });
 
@@ -34,6 +34,7 @@ export function addNote(req, res) {
         })
         .then(_ => res.redirect('/'))
         .catch(err => {
+            console.log(err);
             res.render('error', { model: { errorName: err.name, message: err.message, stack: err.stack } });
         });
 }
@@ -44,6 +45,7 @@ export function deleteNote(req, res) {
         .then(_ => db.deleteNote(connect(), id))
         .then(_ => res.redirect(303, '/'))
         .catch(err => {
+            console.log(err);
             res.render('error', { model: { errorName: err.name, message: err.message, stack: err.stack } });
         });
 }
@@ -55,6 +57,7 @@ export function updateNote(req, res) {
         .then(_ => db.updateNote(connect(), id, note))
         .then(_ => res.status(202).send())
         .catch(err => {
+            console.log(err);
             res.status(404).send(err);
         });
 }

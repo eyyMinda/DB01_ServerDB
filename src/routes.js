@@ -58,7 +58,8 @@ export function updateNote(req, res) {
     const id = req.body.id;
     const note = req.body.note;
     Promise.resolve()
-        .then(_ => db.updateNote(connect(), id, note))
+        .then(_ => authenticate(req))
+        .then(userId => db.updateNote(connect(), id, note, userId))
         .then(_ => res.status(202).send())
         .catch(err => {
             console.log(err);
@@ -68,9 +69,10 @@ export function updateNote(req, res) {
 
 async function authenticate(req) {
     const token = req.cookies.authToken;
-    const tokenData = await db.selectToken(connect(), token)
-    if (!tokenData) {
-        throw 'no auth';
+    let tokenData;
+    if (!token) { throw 'no auth'; } else {
+        tokenData = await db.selectToken(connect(), token)
+        if (!tokenData) throw 'no auth';
     }
     return tokenData.userId;
 }

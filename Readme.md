@@ -15,4 +15,4 @@ ToDo list:
 8. [✅] Registration
 9. [✅] Login
 10. [✅] Show only current user items
-11. [] Delete old authToken (cron jobs)
+11. [✅] Delete old authToken (cron jobs)

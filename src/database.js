@@ -1,6 +1,6 @@
 export async function selectNotes(connection, userId) {
     return await new Promise((resolve, reject) => {
-        connection.execute('SELECT noteId, note, priority, `style`, userId FROM notes_with_styles WHERE userId = ? ORDER BY priority DESC;', [userId], (err, rows) => {
+        connection.execute('SELECT * FROM notes_with_styles WHERE userId = ? ORDER BY priority DESC;', [userId], (err, rows) => {
             if (err) return reject(err);
             const notes = rows;
             return resolve(notes);
@@ -50,16 +50,16 @@ export async function insertStyle(connection, noteId, style) {
 
 export async function deleteNote(connection, noteId, userId) {
     return await new Promise((resolve, reject) => {
-        connection.execute('DELETE FROM notes WHERE noteId = ? AND userId = ?', [noteId, userId], (err, _) => {
+        connection.execute('DELETE FROM notes WHERE noteId=? AND userId=?', [noteId, userId], (err, _) => {
             if (err) return reject(err);
             resolve();
         });
     })
 }
 
-export async function updateNote(connection, noteId, note) {
+export async function updateNote(connection, noteId, note, userId) {
     return await new Promise((resolve, reject) => {
-        connection.execute('UPDATE notes SET note=? WHERE noteId=?', [note, noteId], (err, _) => {
+        connection.execute('UPDATE notes SET note=? WHERE noteId=? AND userId=?', [note, noteId, userId], (err, _) => {
             if (err) return reject(err);
             resolve();
         });

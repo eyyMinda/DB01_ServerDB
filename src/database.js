@@ -1,12 +1,10 @@
-export async function selectNotes(connection) {
+export async function selectNotes(connection, userId) {
     return await new Promise((resolve, reject) => {
-        connection.execute(
-            'SELECT n.noteId, note, priority, style FROM notes n LEFT JOIN note_style ns ON n.noteId = ns.noteId ORDER BY priority DESC;',
-            (err, rows) => {
-                if (err) return reject(err);
-                const notes = rows;
-                return resolve(notes);
-            })
+        connection.execute('SELECT noteId, note, priority, `style`, userId FROM notes_with_styles WHERE userId = ? ORDER BY priority DESC;', [userId], (err, rows) => {
+            if (err) return reject(err);
+            const notes = rows;
+            return resolve(notes);
+        })
     });
 }
 
@@ -20,9 +18,9 @@ export async function selectStyles(connection) {
     });
 }
 
-export async function insertNote(connection, note, priority) {
+export async function insertNote(connection, note, priority, userId) {
     return await new Promise((resolve, reject) => {
-        connection.execute('INSERT notes(note, priority) VALUES(?, ?)', [note, priority], (err, _) => {
+        connection.execute('INSERT notes(note, priority, userId) VALUES(?, ?, ?)', [note, priority, userId], (err, _) => {
             if (err) return reject(err);
             resolve();
         });
@@ -50,9 +48,9 @@ export async function insertStyle(connection, noteId, style) {
     });
 }
 
-export async function deleteNote(connection, noteId) {
+export async function deleteNote(connection, noteId, userId) {
     return await new Promise((resolve, reject) => {
-        connection.execute('DELETE FROM notes WHERE noteId = ?', [noteId], (err, _) => {
+        connection.execute('DELETE FROM notes WHERE noteId = ? AND userId = ?', [noteId, userId], (err, _) => {
             if (err) return reject(err);
             resolve();
         });
@@ -98,9 +96,9 @@ export async function insertToken(connection, token, userId) {
 
 export async function selectToken(connection, token) {
     return await new Promise((resolve, reject) => {
-        connection.execute('SELECT * from loginTokens WHERE token = ?', [token], (err, _) => {
+        connection.execute('SELECT * from loginTokens WHERE token = ?', [token], (err, res) => {
             if (err) return reject(err);
-            resolve(!!_[0]);
+            resolve(res[0]);
         });
     })
 }

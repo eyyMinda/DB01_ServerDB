@@ -7,7 +7,7 @@ export function getNotes(req, res) {
 
     Promise.resolve()
         .then(_ => authenticate(req))
-        .then(_ => Promise.all([db.selectNotes(connect()), db.selectStyles(connect())]))
+        .then(userId => Promise.all([db.selectNotes(connect(), userId), db.selectStyles(connect())]))
         .then(([notes, styles]) => ({ ...model, notes, styles }))
         .then(model => res.render('index', { model }))
         .catch(err => {
@@ -21,9 +21,10 @@ export function getNotes(req, res) {
 export function addNote(req, res) {
     const { note, priority, style } = req.body;
     Promise.resolve()
-        .then(_ => getConnection())
-        .then(async connection => {
-            await db.insertNote(connection, note, priority);
+        .then(_ => authenticate(req))
+        .then(userId => [userId, getConnection()])
+        .then(async ([userId, connection]) => {
+            await db.insertNote(connection, note, priority, userId);
             return connection;
         })
         .then(async connection => {
@@ -42,9 +43,10 @@ export function addNote(req, res) {
 }
 
 export function deleteNote(req, res) {
-    const id = req.query.id;
+    const noteId = req.query.id;
     Promise.resolve()
-        .then(_ => db.deleteNote(connect(), id))
+        .then(_ => authenticate(req))
+        .then(userId => db.deleteNote(connect(), noteId, userId))
         .then(_ => res.redirect(303, '/'))
         .catch(err => {
             console.log(err);
@@ -66,7 +68,9 @@ export function updateNote(req, res) {
 
 async function authenticate(req) {
     const token = req.cookies.authToken;
-    if (! await db.selectToken(connect(), token)) {
+    const tokenData = await db.selectToken(connect(), token)
+    if (!tokenData) {
         throw 'no auth';
     }
+    return tokenData.userId;
 }

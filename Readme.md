@@ -1,22 +1,18 @@
 ToDo list:
-1. [✅] Dizainas
-2. [✅] Naujo elemento įdėjimas
-3. [✅] Užkrovimas iš DB
-4. [✅] Išsaugojimas į DB
+1. [✅] Design
+2. [✅] Add new item
+3. [✅] Load data from DB
+4. [✅] Save to DB
 
  
 
-5. [✅] Elemento ištrynimas
-6. [✅] Elemento modifikajimas
-7. [✅] Praplėtimas: prioritetai, stiliai
+5. [✅] Delete item
+6. [✅] Edit item
+7. [✅] Priority, style
  
  
 
-8. [✅] Registracija
-9. [✅] Prisijungimas
-10. [] Rodyti tik vartotojo elementus
-
- 
-
-11. [] Praplėtimas: kategorijos
-12. [] Kategorijų dalinimasis tarp vartotojų
+8. [✅] Registration
+9. [✅] Login
+10. [✅] Show only current user items
+11. [] Delete old authToken (cron jobs)

@@ -42,7 +42,7 @@ export function login(req, res) {
     res.render('login', { model: { hasError: req.query.error } });
 }
 
-//login user or send back on error
+//login user or redirect back on error
 export function handleLogin(req, res) {
     const { username, password } = req.body;
     Promise.resolve()

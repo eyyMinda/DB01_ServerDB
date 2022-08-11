@@ -21,6 +21,7 @@ hr {
 
 main {
     margin: 20px 10px;
+    text-align: center;
 }
 
 form#note-input {
@@ -87,7 +88,7 @@ form#note-input {
 }
 
 
-#note-input button {
+.button {
     background-color: #5d5;
     min-width: 80px;
     max-width: 120px;
@@ -99,7 +100,7 @@ form#note-input {
     transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transition: box-shadow 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
 }
-#note-input button:hover {
+.button:hover {
     background-color: #7f7;
     box-shadow: #8f8 0 0 6px 2px;
 }

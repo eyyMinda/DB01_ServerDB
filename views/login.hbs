@@ -6,14 +6,16 @@
 <hr />
 
 {{#with model}}
-    <h1>Login</h1>
+    <div id="title-container">
+        <h1>Login</h1>
+    </div>
     <main>
         <form method="POST">
             <label for="username-input">Username</label>
             <input type="text" name="username" id="username-input" />
             <label for="password-input">Password</label>
             <input type="password" name="password" id="password-input" />
-            <button type="submit">Login</button>
+            <button type="submit" class="button">Login</button>
         </form>
         {{#if hasError}}
             <div style="color=red;">
